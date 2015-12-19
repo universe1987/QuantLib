@@ -45,7 +45,6 @@ void FdmDupire1dOp::setTime(Time t1, Time t2) {
         mapT_ = SecondDerivativeOp(0, mesher_).mult(0.5 * tmp * tmp);
     }
 }
->>>>>>> tmp/master
 
 Size FdmDupire1dOp::size() const { return 1; }
 
