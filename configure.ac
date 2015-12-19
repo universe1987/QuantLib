@@ -363,6 +363,8 @@ AC_CONFIG_FILES([
     ql/experimental/variancegamma/Makefile
     ql/experimental/varianceoption/Makefile
     ql/experimental/volatility/Makefile
+    ql/experimental/xva/Makefile
+    ql/experimental/yield/Makefile
     ql/indexes/Makefile
     ql/indexes/ibor/Makefile
     ql/indexes/inflation/Makefile
@@ -449,23 +451,38 @@ AC_CONFIG_FILES([
     m4/Makefile
     Docs/Makefile
     Examples/Makefile
+    Examples/AswZSpreads/Makefile
     Examples/BasketLosses/Makefile
     Examples/BermudanSwaption/Makefile
+    Examples/BermudanSwaption2/Makefile
     Examples/Bonds/Makefile
     Examples/CallableBonds/Makefile
+    Examples/CallableBonds2/Makefile
     Examples/CDS/Makefile
+    Examples/CmsMarket/Makefile
+    Examples/CmsSwaption/Makefile
     Examples/ConvertibleBonds/Makefile
+    Examples/CreditRiskPlus/Makefile
     Examples/DiscreteHedging/Makefile
     Examples/EquityOption/Makefile
     Examples/FittedBondCurve/Makefile
     Examples/FRA/Makefile
     Examples/LatentModel/Makefile
     Examples/Gaussian1dModels/Makefile
+    Examples/InterestRateSmiles/Makefile
+    Examples/KahaleSmileSection/Makefile
+    Examples/Lmm/Makefile
     Examples/MarketModels/Makefile
+    Examples/MultitenorVols/Makefile
+    Examples/NonstandardSwaption/Makefile
     Examples/MultidimIntegral/Makefile
+    Examples/ProxyPricing/Makefile
     Examples/Replication/Makefile
     Examples/Repo/Makefile
+    Examples/SimulatedAnnealing/Makefile
+    Examples/SviSmileSection/Makefile
     Examples/Swap/Makefile
+    Examples/Volaswap/Makefile
     test-suite/Makefile])
 AC_CONFIG_FILES([quantlib-config],[chmod +x quantlib-config])
 AC_CONFIG_FILES([QuantLib.spec])
