@@ -42,9 +42,10 @@ void ProxyNonstandardSwaptionEngine::calculate() const {
         return;
     }
 
-    std::vector<Date>::const_iterator nextExerciseDateOrig =
-        std::upper_bound(arguments_.exercise->dates().begin(),
-                         arguments_.exercise->dates().end(), today);
+    // not used
+    // std::vector<Date>::const_iterator nextExerciseDateOrig =
+    //     std::upper_bound(arguments_.exercise->dates().begin(),
+    //                      arguments_.exercise->dates().end(), today);
 
     Size exerciseIdx = nextExerciseDate - proxy_->expiryDates.begin();
 
@@ -84,7 +85,7 @@ void ProxyNonstandardSwaptionEngine::calculate() const {
 
     Array y(1, todaysState), z(1, 0.0), p(1, 0.0);
 
-    if (!close(nextExerciseTime, todaysTime) && !integrationPoints_ == 0) {
+    if (!close(nextExerciseTime, todaysTime) && !(integrationPoints_ == 0)) {
         y = proxy_->model->yGrid(stdDevs_, integrationPoints_, nextExerciseTime,
                                  todaysTime, todaysState);
         z = proxy_->model->yGrid(stdDevs_, integrationPoints_);

@@ -73,7 +73,7 @@ class ProxyNonstandardSwaptionEngine : public NonstandardSwaption::engine {
 
     // imply the model state from the given reference rate and period
     struct StateHelper;
-    friend class StateHelper;
+    friend struct StateHelper;
     struct StateHelper {
         StateHelper(Gaussian1dModel *model, const Real rate,
                     const Real maturity, const Real referenceTime)
