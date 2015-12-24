@@ -77,11 +77,11 @@ ClonedYieldTermStructure::ClonedYieldTermStructure(
         Date d = Date(originalReferenceDate_.serialNumber() + i);
         logDiscounts_[i] = std::log(source->discount(d));
         times_[i] = timeFromReference(d);
-        if (processing == PositiveYieldsAndForwards) {
+        if (processing_ == PositiveYieldsAndForwards) {
             logDiscounts_[i] = std::min(0.0, logDiscounts_[i]);
         }
-        if (processing == PositiveForwards ||
-            processing == PositiveYieldsAndForwards) {
+        if (processing_ == PositiveForwards ||
+            processing_ == PositiveYieldsAndForwards) {
             if (i > 0)
                 logDiscounts_[i] = std::min(logDiscounts_[i - 1], logDiscounts_[i]);
         }

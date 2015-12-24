@@ -69,7 +69,7 @@ void ProxyFxTarfEngine::calculate() const {
                    << ") must be less or equal the number of open fixings "
                       "provided by the proxy object ("
                    << proxy_->openFixingDates.size() << ")");
-    QL_REQUIRE(accInd >= 0 && accInd < proxy_->accBucketLimits.size(),
+    QL_REQUIRE(accInd < proxy_->accBucketLimits.size(),
                "accumulated amount index ("
                    << accInd << ") out of range given by the proxy (0..."
                    << proxy_->accBucketLimits.size() << ")");
