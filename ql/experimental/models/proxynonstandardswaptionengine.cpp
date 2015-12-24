@@ -42,6 +42,7 @@ void ProxyNonstandardSwaptionEngine::calculate() const {
         return;
     }
 
+    // not used
     // std::vector<Date>::const_iterator nextExerciseDateOrig =
     //     std::upper_bound(arguments_.exercise->dates().begin(),
     //                      arguments_.exercise->dates().end(), today);

@@ -522,7 +522,7 @@ int main(int argc, char *argv[]) {
         boost::shared_ptr<FloatFloatSwap> underlying4(new FloatFloatSwap(
                 VanillaSwap::Payer, 1.0, 1.0, fixedSchedule, swapBase,
                 Thirty360(), floatingSchedule, euribor6m, Actual360(), false,
-                false, 1.0, 0.0, Null<Real>(), Null<Real>(), 1.0, 0.0010);
+                false, 1.0, 0.0, Null<Real>(), Null<Real>(), 1.0, 0.0010));
 
         boost::shared_ptr<FloatFloatSwaption> swaption4 =
             boost::make_shared<FloatFloatSwaption>(underlying4, exercise);
