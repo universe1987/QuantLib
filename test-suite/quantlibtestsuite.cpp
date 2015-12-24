@@ -21,7 +21,8 @@
 #include <ql/types.hpp>
 #include <ql/settings.hpp>
 #include <ql/version.hpp>
-#include <boost/test/unit_test.hpp>
+//#include <boost/test/unit_test.hpp>
+#include <mpiparalleltestrunner.hpp>
 #include <boost/timer.hpp>
 
 /* Use BOOST_MSVC instead of _MSC_VER since some other vendors (Metrowerks,
