@@ -21,7 +21,13 @@
 #include <ql/types.hpp>
 #include <ql/settings.hpp>
 #include <ql/version.hpp>
+
+#ifdef QL_ENABLE_PARALLEL_UNIT_TEST_RUNNER
+#include "unixparalleltestrunner.hpp"
+#else
 #include <boost/test/unit_test.hpp>
+#endif
+
 #include <boost/timer.hpp>
 
 /* Use BOOST_MSVC instead of _MSC_VER since some other vendors (Metrowerks,
@@ -286,6 +292,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     test->add(BusinessDayConventionTest::suite());
     test->add(CalendarTest::suite());
     test->add(CapFloorTest::suite());
+
     test->add(CapFlooredCouponTest::suite());
     test->add(CashFlowsTest::suite());
     test->add(CliquetOptionTest::suite());

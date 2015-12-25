@@ -201,7 +201,7 @@ endif
 
 quantlib_test_suite_SOURCES = ${QL_TESTS}
 quantlib_test_suite_LDADD = libUnitMain.la ${top_builddir}/ql/libQuantLib.la \
-                            -l${BOOST_UNIT_TEST_LIB} ${BOOST_THREAD_LIB}
+                            -l${BOOST_UNIT_TEST_LIB} ${BOOST_THREAD_LIB} ${BOOST_INTERPROCESS_LIB}
 
 quantlib_benchmark_SOURCES = ${QL_BENCHMARKS}
 quantlib_benchmark_LDADD = libUnitMain.la ${top_builddir}/ql/libQuantLib.la \
@@ -215,6 +215,7 @@ benchmark: quantlib-benchmark$(EXEEXT)
 	BOOST_TEST_LOG_LEVEL=message ./quantlib-benchmark$(EXEEXT)
 
 EXTRA_DIST = \
+    unixparalleltestrunner.hpp \
 	README.txt \
 	testsuite_vc8.vcproj \
 	testsuite_vc9.vcproj \
@@ -226,6 +227,7 @@ else
 
 EXTRA_DIST = \
 	${QL_TESTS} \
+    unixparalleltestrunner.hpp \
 	quantlibbenchmark.cpp \
 	README.txt \
 	testsuite_vc8.vcproj \
