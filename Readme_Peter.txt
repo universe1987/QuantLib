@@ -4,3 +4,4 @@ fixes to be merged into official QuantLib
 - (in master) proxynonstandardswaptionengine: struct/class state halper, !(integrationPoints_ ==0), nextExOrigDate is not used
 - (todo) CapHelper for normal and sln vols
 - (todo) several compiler warnings about unused fields
+- (in master) fix messages in lgm tests
