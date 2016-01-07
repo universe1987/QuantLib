@@ -650,7 +650,8 @@ void LgmTest::testLgm4fAndFxCalibration() {
                         << " while model premium is " << model);
         // the stochastic rates produce some noise, but do not have a huge
         // impact on the effective volatility, so we check that they are
-        // in line with a cached example
+        // in line with a cached example (note that the analytic fx option
+        // pricing engine was checked against MC in another test case)
         if (std::fabs(calibratedVol - 0.143) > 0.01)
             BOOST_ERROR(
                 "calibrated fx volatility #"
