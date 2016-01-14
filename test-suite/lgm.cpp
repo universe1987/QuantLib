@@ -655,7 +655,7 @@ void LgmTest::testLgm4fAndFxCalibration() {
             BOOST_ERROR(
                 "calibrated fx volatility #"
                 << i
-                << " (USD) seems off, expected to be 0.15 +- 0.0030, but is "
+                << " (USD) seems off, expected to be 0.143 +- 0.01, but is "
                 << calibratedVol);
     }
     for (Size i = 0; i < helpersGbp.size(); ++i) {
@@ -670,7 +670,7 @@ void LgmTest::testLgm4fAndFxCalibration() {
         if (std::fabs(calibratedVol - 0.193) > 0.01)
             BOOST_ERROR(
                 "calibrated fx volatility #"
-                << i << " (USD) seems off, expected to be 0.20 +- 0.01, but is "
+                << i << " (USD) seems off, expected to be 0.193 +- 0.01, but is "
                 << calibratedVol);
     }
 

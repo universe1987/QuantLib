@@ -231,8 +231,8 @@ int main( int argc, char* argv[] )
             }
             else {
                 std::string msg;
-                while(!world.iprobe(boost::mpi::any_source, 2))
-                    boost::this_thread::sleep(boost::posix_time::microsec(1000));
+//                while(!world.iprobe(boost::mpi::any_source, 2))
+//                    boost::this_thread::sleep(boost::posix_time::microsec(1000));
 
                 const boost::mpi::status s =
                         world.recv(boost::mpi::any_source, 2, msg);
@@ -310,7 +310,6 @@ int main( int argc, char* argv[] )
 
             boost::timer t;
 
-
             framework::run(id.id);
             r += boost::unit_test::results_collector.results(id.id);
 
@@ -325,10 +324,11 @@ int main( int argc, char* argv[] )
             world.recv(0, 0, id);
         }
 
-        world.isend(0, 3, runTimeLogs);
-        boost::mpi::request t = world.isend(0, 1, (char*) &r, sizeof(test_results));
-        while(!boost::mpi::test_all(&t, &t+1))
-            boost::this_thread::sleep(boost::posix_time::microsec(1000));
+        world.send(0, 3, runTimeLogs);
+//        boost::mpi::request t =
+                world.send(0, 1, (char*) &r, sizeof(test_results));
+//        while(!boost::mpi::test_all(&t, &t+1))
+//            boost::this_thread::sleep(boost::posix_time::microsec(1000));
     }
 
     framework::shutdown();

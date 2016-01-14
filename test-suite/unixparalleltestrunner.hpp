@@ -58,6 +58,13 @@ using namespace boost::unit_test_framework;
 
 
 namespace {
+    counter_t test_enabled(test_unit_id id) {
+        test_case_counter tcc;
+        boost::unit_test::traverse_test_tree(id, tcc);
+
+        return tcc.p_count;
+    }
+
     class TestCaseCollector : public test_tree_visitor {
       public:
         typedef std::map<test_unit_id, std::list<test_unit_id> > id_map_t;
@@ -69,13 +76,15 @@ namespace {
             if (tu.p_parent_id == framework::master_test_suite().p_id) {
                 QL_REQUIRE(!tu.p_name.get().compare("QuantLib test suite"),
                      "could not find QuantLib test suite");
+
                 testSuiteId_ = tu.p_id;
             }
             return test_tree_visitor::visit(tu);
         }
 
         void visit(test_case const& tc) {
-            idMap_[tc.p_parent_id].push_back(tc.p_id);
+            if (test_enabled(tc.p_id))
+                idMap_[tc.p_parent_id].push_back(tc.p_id);
         }
 
         std::list<test_unit_id>::size_type numberOfTests() {
@@ -90,6 +99,14 @@ namespace {
         test_unit_id testSuiteId_;
     };
 
+    class TestCaseReportAggregator : public test_tree_visitor {
+      public:
+        void test_suite_finish( test_suite const& ts)  {
+            results_collect_helper ch( s_rc_impl().m_results_store[ts.p_id], ts );
+            traverse_test_tree( ts, ch );
+        }
+    };
+
     struct TestCaseId {
         test_unit_id id;
         bool terminate;
@@ -98,6 +115,11 @@ namespace {
     struct RuntimeLog {
         QuantLib::Time time;
         char testCaseName[256];
+    };
+
+    struct QualifiedTestResults {
+        test_unit_id id;
+        test_results results;
     };
 
     const char* const namesLogMutexName = "named_log_mutex";
@@ -126,6 +148,7 @@ namespace {
         out.rdbuf(s.rdbuf());
     }
 }
+
 
 test_suite* init_unit_test_suite(int, char* []);
 
@@ -160,6 +183,16 @@ int main( int argc, char* argv[] )
         framework::init(init_unit_test_suite, argc, argv );
         framework::finalize_setup_phase();
 
+        framework::impl::s_frk_state().deduce_run_status(
+            framework::master_test_suite().p_id);
+
+        if( runtime_config::list_content() != boost::unit_test::OF_INVALID ) {
+            ut_detail::hrf_content_reporter reporter( results_reporter::get_stream() );
+            traverse_test_tree(framework::master_test_suite().p_id, reporter, true);
+
+            return boost::exit_success;
+        }
+
         TestCaseCollector tcc;
         traverse_test_tree(framework::master_test_suite(), tcc , true);
 
@@ -174,17 +207,17 @@ int main( int argc, char* argv[] )
 
         message_queue::remove(testResultQueueName);
         message_queue rq(create_only, testResultQueueName, nProc,
-            sizeof(test_results));
+            sizeof(QualifiedTestResults));
 
         message_queue::remove(testRuntimeLogName);
         message_queue lq(create_only, testRuntimeLogName, nProc,
             sizeof(RuntimeLog));
 
         // run root test cases in master process
-        const std::list<test_unit_id>& qlRoot
-            = tcc.map().find(tcc.testSuiteId())->second;
-
-        test_results results;
+        const std::list<test_unit_id> qlRoot
+            = (tcc.map().count(tcc.testSuiteId()))
+                ? tcc.map().find(tcc.testSuiteId())->second
+                : std::list<test_unit_id>();
 
         std::stringstream logBuf;
         std::streambuf* const oldBuf = s_log_impl().stream().rdbuf();
@@ -193,8 +226,8 @@ int main( int argc, char* argv[] )
         for (std::list<test_unit_id>::const_iterator iter = qlRoot.begin();
             std::distance(qlRoot.begin(), iter) < int(qlRoot.size())-1;
             ++iter) {
-            framework::run(*iter);
-            results += boost::unit_test::results_collector.results(*iter);
+
+            framework::impl::s_frk_state().execute_test_tree(*iter);
         }
         output_logstream(s_log_impl().stream(), oldBuf, logBuf);
         s_log_impl().stream().rdbuf(oldBuf);
@@ -229,7 +262,7 @@ int main( int argc, char* argv[] )
                         it =  p_it->second.begin();
                         it != p_it->second.end(); ++it) {
 
-                        const std::string& name
+                        const std::string name
                             = framework::get(*it, TUT_ANY).p_name;
 
                         if (runTimeLog.count(name)) {
@@ -269,35 +302,31 @@ int main( int argc, char* argv[] )
             }
 
             message_queue rq(open_only, testResultQueueName);
-            for(unsigned i = 0; i < nProc; ++i) {
-                test_results remoteResults;
+            for(unsigned i = 0; i < ids.size(); ++i) {
+                QualifiedTestResults remoteResults;
 
                 rq.receive(&remoteResults,
-                    sizeof(remoteResults), recvd_size, priority);
-                results+=remoteResults;
+                    sizeof(QualifiedTestResults), recvd_size, priority);
+
+                boost::unit_test::s_rc_impl().m_results_store[remoteResults.id]
+                    = remoteResults.results;
             }
 
             if (!qlRoot.empty()) {
                 std::streambuf* const oldBuf = s_log_impl().stream().rdbuf();
                 s_log_impl().stream().rdbuf(logBuf.rdbuf());
 
-                framework::run(qlRoot.back());
+                const test_unit_id id = qlRoot.back();
+                framework::impl::s_frk_state().execute_test_tree(id);
 
                 output_logstream(s_log_impl().stream(), oldBuf, logBuf);
                 s_log_impl().stream().rdbuf(oldBuf);
             }
 
-            results += boost::unit_test::results_collector.results(
-                qlRoot.back());
+            TestCaseReportAggregator tca;
+            traverse_test_tree(framework::master_test_suite(), tca , true);
 
-            s_log_impl().stream() << "Test module \""
-                << framework::master_test_suite().p_name
-                <<"\" has passed with:"
-                << std::endl
-                << " " << results.p_assertions_failed << " assertions failed"
-                << std::endl
-                << " " << results.p_assertions_passed << " assertions passed"
-                << std::endl;
+            results_reporter::make_report();
 
             message_queue lq(open_only, testRuntimeLogName);
 
@@ -330,24 +359,31 @@ int main( int argc, char* argv[] )
                 run_time_list_type;
             run_time_list_type runTimeLogs;
 
-            test_results results;
+            message_queue rq(open_only, testResultQueueName);
 
             while (!id.terminate) {
-
                 boost::timer t;
-                framework::run(id.id);
+
+                BOOST_TEST_FOREACH( test_observer*, to, framework::impl::s_frk_state().m_observers )
+                    framework::impl::s_frk_state().m_aux_em.vexecute( boost::bind( &test_observer::test_start, to, 1 ) );
+
+                framework::impl::s_frk_state().execute_test_tree( id.id );
+
+                BOOST_TEST_REVERSE_FOREACH( test_observer*, to,
+                    framework::impl::s_frk_state().m_observers ) to->test_finish();
 
                 runTimeLogs.push_back(std::make_pair(
                     framework::get(id.id, TUT_ANY).p_name, t.elapsed()));
 
                 output_logstream(s_log_impl().stream(), oldBuf, logBuf);
-                results+=boost::unit_test::results_collector.results(id.id);
+
+                QualifiedTestResults results
+                    = { id.id, boost::unit_test::results_collector.results(id.id) };
+                rq.send(&results, sizeof(QualifiedTestResults), 0);
 
                 mq.receive(&id, sizeof(TestCaseId), recvd_size, priority);
             }
 
-            message_queue rq(open_only, testResultQueueName);
-            rq.send(&results, sizeof(results), 0);
 
             output_logstream(s_log_impl().stream(), oldBuf, logBuf);
             s_log_impl().stream().rdbuf(oldBuf);

@@ -4,8 +4,7 @@ fixes to be merged into official QuantLib
 - (in master) proxynonstandardswaptionengine: struct/class state halper, !(integrationPoints_ ==0), nextExOrigDate is not used
 - (todo) CapHelper for normal and sln vols
 - (todo) several compiler warnings about unused fields
-
-- fix this:
+- (todo) fix this:
 ../ql/experimental/models/mcgaussian1dnonstandardswaptionengine.hpp:87:10: warning: 'QuantLib::McGaussian1dNonstandardSwaptionEngine<QuantLib::GenericPseudoRandomMultiThreaded<QuantLib::MersenneTwisterMultiThreaded, QuantLib::InverseCumulativeNormal>, QuantLib::GenericRiskStatistics<QuantLib::GenericGaussianStatistics<QuantLib::GeneralStatistics> > >::reset' hides overloaded virtual function [-Woverloaded-virtual]
     void reset() const;
          ^
@@ -19,3 +18,4 @@ montecarlo_multithreaded.cpp:312:9: note: in instantiation of member function 'Q
         void reset() { results_.reset(); }
              ^
 1 warning generated.
+- (in master) fix messages in lgm tests
