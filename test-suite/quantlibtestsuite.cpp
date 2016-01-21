@@ -25,8 +25,8 @@
 #ifdef QL_ENABLE_PARALLEL_UNIT_TEST_RUNNER
 #include "unixparalleltestrunner.hpp"
 #else
-#include <boost/test/unit_test.hpp>
-// #include <mpiparalleltestrunner.hpp>
+// #include <boost/test/unit_test.hpp>
+#include <mpiparalleltestrunner.hpp>
 #endif
 
 #include <boost/timer.hpp>
