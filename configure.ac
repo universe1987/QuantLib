@@ -283,14 +283,14 @@ AC_ARG_ENABLE([parallel-unit-test-runner],
                               the runtime on multi core CPUs.]),
               [ql_use_parallel_test=$enableval],
               [ql_use_parallel_test=no])
-AC_MSG_RESULT([$ql_parallel_test])
+AC_MSG_RESULT([$ql_use_parallel_test])
 if test "$ql_use_parallel_test" = "yes" ; then
    AC_DEFINE([QL_ENABLE_PARALLEL_UNIT_TEST_RUNNER],[1],
              [Define this if you want to enable 
               the parallel unit test runner.])
+   QL_CHECK_BOOST_VERSION_1_59_OR_HIGHER
    if test "$ql_use_tsop" != "yes" ; then
-	  QL_CHECK_BOOST_VERSION_1_58_OR_HIGHER
-	  QL_CHECK_BOOST_TEST_THREAD_SIGNALS2_SYSTEM
+      QL_CHECK_BOOST_TEST_THREAD_SIGNALS2_SYSTEM
    fi
    QL_CHECK_BOOST_TEST_INTERPROCESS
 else
@@ -378,7 +378,6 @@ AC_CONFIG_FILES([
     ql/experimental/lattices/Makefile
     ql/experimental/math/Makefile
     ql/experimental/mcbasket/Makefile
-    ql/experimental/models/Makefile
     ql/experimental/processes/Makefile
     ql/experimental/risk/Makefile
     ql/experimental/shortrate/Makefile
@@ -386,8 +385,6 @@ AC_CONFIG_FILES([
     ql/experimental/variancegamma/Makefile
     ql/experimental/varianceoption/Makefile
     ql/experimental/volatility/Makefile
-    ql/experimental/xva/Makefile
-    ql/experimental/yield/Makefile
     ql/indexes/Makefile
     ql/indexes/ibor/Makefile
     ql/indexes/inflation/Makefile
@@ -474,38 +471,23 @@ AC_CONFIG_FILES([
     m4/Makefile
     Docs/Makefile
     Examples/Makefile
-    Examples/AswZSpreads/Makefile
     Examples/BasketLosses/Makefile
     Examples/BermudanSwaption/Makefile
-    Examples/BermudanSwaption2/Makefile
     Examples/Bonds/Makefile
     Examples/CallableBonds/Makefile
-    Examples/CallableBonds2/Makefile
     Examples/CDS/Makefile
-    Examples/CmsMarket/Makefile
-    Examples/CmsSwaption/Makefile
     Examples/ConvertibleBonds/Makefile
-    Examples/CreditRiskPlus/Makefile
     Examples/DiscreteHedging/Makefile
     Examples/EquityOption/Makefile
     Examples/FittedBondCurve/Makefile
     Examples/FRA/Makefile
     Examples/LatentModel/Makefile
     Examples/Gaussian1dModels/Makefile
-    Examples/InterestRateSmiles/Makefile
-    Examples/KahaleSmileSection/Makefile
-    Examples/Lmm/Makefile
     Examples/MarketModels/Makefile
-    Examples/MultitenorVols/Makefile
-    Examples/NonstandardSwaption/Makefile
     Examples/MultidimIntegral/Makefile
-    Examples/ProxyPricing/Makefile
     Examples/Replication/Makefile
     Examples/Repo/Makefile
-    Examples/SimulatedAnnealing/Makefile
-    Examples/SviSmileSection/Makefile
     Examples/Swap/Makefile
-    Examples/Volaswap/Makefile
     test-suite/Makefile])
 AC_CONFIG_FILES([quantlib-config],[chmod +x quantlib-config])
 AC_CONFIG_FILES([QuantLib.spec])
