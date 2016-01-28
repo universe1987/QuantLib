@@ -76,7 +76,7 @@ struct CommonVars{
 
         CommonVars() {
             accuracy = 1.0e-6;
-            tolerance = 5.0e-6;
+            tolerance = 2.5e-8;
         }
 
         void setTermStructure() {
