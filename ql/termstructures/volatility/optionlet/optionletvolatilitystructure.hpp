@@ -28,6 +28,7 @@
 
 #include <ql/termstructures/voltermstructure.hpp>
 #include <ql/termstructures/volatility/volatilitytype.hpp>
+#include <ql/termstructures/volatility/optionlet/optionletstripper.hpp>
 
 namespace QuantLib {
 
@@ -103,6 +104,10 @@ namespace QuantLib {
         //@}
         virtual const VolatilityType volatilityType() const;
         virtual const Real displacement() const;
+        //! returns the optionletstripper of derived classes if it has been used. 
+        //! (otherwise a null pointer will be returned)
+        virtual boost::shared_ptr<OptionletStripper> optionletStripper() const;
+        //@}
       protected:
         virtual boost::shared_ptr<SmileSection> smileSectionImpl(
                                                 const Date& optionDate) const;
@@ -215,6 +220,10 @@ namespace QuantLib {
         return 0.0;
     }
 
+    inline boost::shared_ptr< OptionletStripper >
+    OptionletVolatilityStructure::optionletStripper() const {
+        QL_FAIL("Inspector to optionletstripper not implemented!");
+    }
 }
 
 #endif

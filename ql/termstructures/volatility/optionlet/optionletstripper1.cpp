@@ -55,6 +55,7 @@ namespace QuantLib {
 
         capFloorPrices_ = Matrix(nOptionletTenors_, nStrikes_);
         optionletPrices_ = Matrix(nOptionletTenors_, nStrikes_);
+        capletVols_ = Matrix(nOptionletTenors_, nStrikes_);
         capFloorVols_ = Matrix(nOptionletTenors_, nStrikes_);
         Real firstGuess = 0.14; // guess is only used for shifted lognormal vols
         optionletStDevs_ = Matrix(nOptionletTenors_, nStrikes_, firstGuess);
@@ -194,6 +195,11 @@ namespace QuantLib {
             }
         }
 
+    }
+
+    const Matrix& OptionletStripper1::capletVols() const {
+        calculate();
+        return capletVols_;
     }
 
     const Matrix& OptionletStripper1::capFloorPrices() const {

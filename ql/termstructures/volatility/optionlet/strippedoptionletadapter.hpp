@@ -3,6 +3,7 @@
 /*
  Copyright (C) 2007 Giorgio Facchinetti
  Copyright (C) 2007 Katiuscia Manzoni
+ Copyright (C) 2015 Michael von den Driesch
  Copyright (C) 2015 Peter Caspers
 
  This file is part of QuantLib, a free-software/open-source library
@@ -27,6 +28,7 @@
 #define quantlib_stripped_optionlet_adapter_h
 
 #include <ql/termstructures/volatility/optionlet/strippedoptionletbase.hpp>
+#include <ql/termstructures/volatility/optionlet/optionletstripper.hpp>
 #include <ql/termstructures/volatility/optionlet/optionletvolatilitystructure.hpp>
 #include <ql/math/interpolation.hpp>
 #include <ql/math/interpolations/sabrinterpolation.hpp>
@@ -55,6 +57,7 @@ namespace QuantLib {
         //@{
         void update();
         void performCalculations() const;
+        boost::shared_ptr<OptionletStripper> optionletStripper() const;
         //@}
         const VolatilityType volatilityType() const;
         const Real displacement() const;
@@ -76,6 +79,10 @@ namespace QuantLib {
     inline void StrippedOptionletAdapter::update() {
         TermStructure::update();
         LazyObject::update();
+    }
+
+    inline boost::shared_ptr<OptionletStripper> StrippedOptionletAdapter::optionletStripper() const {
+        return boost::dynamic_pointer_cast<OptionletStripper> (optionletStripper_);
     }
 
 }
