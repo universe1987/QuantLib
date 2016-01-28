@@ -57,7 +57,6 @@ namespace QuantLib {
         //@{
         void update();
         void performCalculations() const;
-        boost::shared_ptr<OptionletStripper> optionletStripper() const;
         //@}
         const VolatilityType volatilityType() const;
         const Real displacement() const;
@@ -79,10 +78,6 @@ namespace QuantLib {
     inline void StrippedOptionletAdapter::update() {
         TermStructure::update();
         LazyObject::update();
-    }
-
-    inline boost::shared_ptr<OptionletStripper> StrippedOptionletAdapter::optionletStripper() const {
-        return boost::dynamic_pointer_cast<OptionletStripper> (optionletStripper_);
     }
 
 }

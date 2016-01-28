@@ -57,9 +57,6 @@ namespace QuantLib {
         //@}
         const VolatilityType volatilityType() const;
         const Real displacement() const;
-        //! returns the Optionletstripper provided in the constructor
-        boost::shared_ptr<OptionletStripper> optionletStripper() const;
-        //@}
       protected:
         // All virtual methods of base classes must be forwarded
         //! \name OptionletVolatilityStructure interface
@@ -119,11 +116,6 @@ namespace QuantLib {
         return baseVol_->displacement();
     }
 
-    inline boost::shared_ptr<OptionletStripper> SpreadedOptionletVolatility::optionletStripper() const {
-        boost::shared_ptr<StrippedOptionletAdapter> adapter = boost::dynamic_pointer_cast<StrippedOptionletAdapter> (baseVol_.currentLink());
-        QL_REQUIRE(adapter!=NULL, "Could not cast StrippedOptionletAdapter in file "<<__FILE__);
-        return adapter->optionletStripper();
-    }
 }
 
 #endif

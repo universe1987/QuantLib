@@ -54,24 +54,11 @@ namespace QuantLib {
     }
 
     BlackCapFloorEngine::BlackCapFloorEngine(
-                       const Handle<YieldTermStructure>& discountCurve,
-                       const Handle<OptionletVolatilityStructure>& volatility,
-                       Real displacement)
-    : discountCurve_(discountCurve), vol_(volatility) {
-        QL_REQUIRE(
-            vol_->optionletStripper()->volatilityType() == ShiftedLognormal,
-            "BlackCapFloorEngine should only be used for vol surfaces stripped "
-            "with shifted log normal model. Options were stripped with model "
-                << vol_->optionletStripper()->volatilityType());
-        if (displacement != Null< Real >()) {
-            displacement_ = displacement;
-            QL_REQUIRE(vol_->optionletStripper()->displacement() ==
-                           displacement_,
-                       "Displacement used for stripping and provided for "
-                       "pricing differ. Model displacement was : "
-                           << vol_->optionletStripper()->displacement());
-        } else
-            displacement_ = vol_->optionletStripper()->displacement();
+        const Handle<YieldTermStructure> &discountCurve,
+        const Handle<OptionletVolatilityStructure> &volatility,
+        Real displacement)
+        : discountCurve_(discountCurve), vol_(volatility) {
+        displacement_ = vol_->displacement();
         registerWith(discountCurve_);
         registerWith(vol_);
     }

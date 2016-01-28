@@ -48,11 +48,12 @@ namespace QuantLib {
     }
 
     BachelierCapFloorEngine::BachelierCapFloorEngine(
-                       const Handle<YieldTermStructure>& discountCurve,
-                       const Handle<OptionletVolatilityStructure>& volatility)
-    : discountCurve_(discountCurve), vol_(volatility) {
-        QL_REQUIRE(vol_->optionletStripper()->volatilityType() == Normal, 
-                    "BachelierCapFloorEngine should only be used for vol surfaces stripped with normal model. Options were stripped with model "<<vol_->optionletStripper()->volatilityType());
+        const Handle<YieldTermStructure> &discountCurve,
+        const Handle<OptionletVolatilityStructure> &volatility)
+        : discountCurve_(discountCurve), vol_(volatility) {
+        QL_REQUIRE(vol_->volatilityType() == Normal, "BachelierCapFloorEngine "
+                                                     "should only be used for "
+                                                     "normal volatilities");
         registerWith(discountCurve_);
         registerWith(vol_);
     }
