@@ -378,6 +378,7 @@ AC_CONFIG_FILES([
     ql/experimental/lattices/Makefile
     ql/experimental/math/Makefile
     ql/experimental/mcbasket/Makefile
+    ql/experimental/models/Makefile
     ql/experimental/processes/Makefile
     ql/experimental/risk/Makefile
     ql/experimental/shortrate/Makefile
@@ -385,6 +386,8 @@ AC_CONFIG_FILES([
     ql/experimental/variancegamma/Makefile
     ql/experimental/varianceoption/Makefile
     ql/experimental/volatility/Makefile
+    ql/experimental/xva/Makefile
+    ql/experimental/yield/Makefile
     ql/indexes/Makefile
     ql/indexes/ibor/Makefile
     ql/indexes/inflation/Makefile
