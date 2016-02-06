@@ -1,4 +1,5 @@
 fixes to be merged into official QuantLib
+- Es können noch mehr integrale direkt ohne Integration aus den Parametrisierungen abgelesen werden (ccy lgm model)
 - (in master) gsr refined observability (evaluation date, termstructure)
 - (in master) type Volatility vs Real in swaptionvolstructure
 - (in master) proxynonstandardswaptionengine: struct/class state halper, !(integrationPoints_ ==0), nextExOrigDate is not used
