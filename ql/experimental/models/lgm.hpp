@@ -44,10 +44,10 @@ template <class Impl> class Lgm : public Gaussian1dModel {
         return parametrization_;
     }
 
-    const Real hullWhiteSigma(const Time t) const {
+    Real hullWhiteSigma(const Time t) const {
         return parametrization()->hullWhiteSigma(t);
     }
-    const Real hullWhiteKappa(const Time t) const {
+    Real hullWhiteKappa(const Time t) const {
         return parametrization()->hullWhiteKappa(t);
     }
 
@@ -60,12 +60,12 @@ template <class Impl> class Lgm : public Gaussian1dModel {
     void setParametrization(
         const boost::shared_ptr<detail::LgmParametrization<Impl> >
             &parametrization);
-    const Real numeraireImpl(const Time t, const Real y,
+    Real numeraireImpl(const Time t, const Real y,
                              const Handle<YieldTermStructure> &yts) const;
-    const Real zerobondImpl(const Time T, const Time t, const Real y,
+    Real zerobondImpl(const Time T, const Time t, const Real y,
                             const Handle<YieldTermStructure> &yts,
                             const bool adjusted) const;
-    const Real
+    Real
     deflatedZerobondImpl(const Time T, const Time t, const Real y,
                          const Handle<YieldTermStructure> &yts,
                          const Handle<YieldTermStructure> &ytsNumeraire,
@@ -81,7 +81,7 @@ template <class Impl> class Lgm : public Gaussian1dModel {
 // inline
 
 template <class Impl>
-inline const Real
+inline Real
 Lgm<Impl>::numeraireImpl(const Time t, const Real y,
                          const Handle<YieldTermStructure> &yts) const {
     calculate();
@@ -94,7 +94,7 @@ Lgm<Impl>::numeraireImpl(const Time t, const Real y,
 }
 
 template <class Impl>
-inline const Real
+inline Real
 Lgm<Impl>::deflatedZerobondImpl(const Time T, const Time t, const Real y,
                                 const Handle<YieldTermStructure> &yts,
                                 const Handle<YieldTermStructure> &ytsNumeraire,
@@ -112,7 +112,7 @@ Lgm<Impl>::deflatedZerobondImpl(const Time T, const Time t, const Real y,
 }
 
 template <class Impl>
-inline const Real Lgm<Impl>::zerobondImpl(const Time T, const Time t,
+inline Real Lgm<Impl>::zerobondImpl(const Time T, const Time t,
                                           const Real y,
                                           const Handle<YieldTermStructure> &yts,
                                           const bool adjusted) const {

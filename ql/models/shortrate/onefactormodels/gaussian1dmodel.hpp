@@ -94,7 +94,7 @@ class Gaussian1dModel : public TermStructureConsistentModel, public LazyObject {
         const Handle<YieldTermStructure> &yts = Handle<YieldTermStructure>(),
         const bool adjusted = false) const;
 
-    const Real deflatedZerobond(
+    Real deflatedZerobond(
         const Time T, const Time t = 0.0, const Real y = 0.0,
         const Handle<YieldTermStructure> &yts = Handle<YieldTermStructure>(),
         const Handle<YieldTermStructure> &ytsNumeraire =
@@ -111,7 +111,7 @@ class Gaussian1dModel : public TermStructureConsistentModel, public LazyObject {
         const Handle<YieldTermStructure> &yts = Handle<YieldTermStructure>(),
         const bool adjusted = false) const;
 
-    const Real deflatedZerobond(
+    Real deflatedZerobond(
         const Date &maturity, const Date &referenceDate = Null<Date>(),
         const Real y = 0.0,
         const Handle<YieldTermStructure> &yts = Handle<YieldTermStructure>(),
@@ -147,7 +147,7 @@ class Gaussian1dModel : public TermStructureConsistentModel, public LazyObject {
         boost::shared_ptr<SwapIndex> swapIdx = boost::shared_ptr<SwapIndex>(),
         const bool adjusted = false) const;
 
-    const Real deflatedSwapAnnuity(
+    Real deflatedSwapAnnuity(
         const Date &fixing, const Period &tenor,
         const Date &referenceDate = Null<Date>(), const Real y = 0.0,
         boost::shared_ptr<SwapIndex> swapIdx = boost::shared_ptr<SwapIndex>(),
@@ -318,7 +318,7 @@ Gaussian1dModel::zerobond(const Time T, const Time t, const Real y,
     return zerobondImpl(T, t, y, yts, adjusted);
 }
 
-inline const Real
+inline Real
 Gaussian1dModel::deflatedZerobond(const Time T, const Time t, const Real y,
                                   const Handle<YieldTermStructure> &yts,
                                   const Handle<YieldTermStructure> &ytsNumeraire,
@@ -326,7 +326,7 @@ Gaussian1dModel::deflatedZerobond(const Time T, const Time t, const Real y,
     return deflatedZerobondImpl(T, t, y, yts, ytsNumeraire, adjusted);
 }
 
-inline const Real
+inline Real
 Gaussian1dModel::deflatedZerobondImpl(const Time T, const Time t, const Real y,
                                       const Handle<YieldTermStructure> &yts,
                                       const Handle<YieldTermStructure> &ytsNumeraire,
@@ -353,7 +353,7 @@ Gaussian1dModel::zerobond(const Date &maturity, const Date &referenceDate,
                     y, yts, adjusted);
 }
 
-inline const Real Gaussian1dModel::deflatedZerobond(
+inline Real Gaussian1dModel::deflatedZerobond(
     const Date &maturity, const Date &referenceDate, const Real y,
     const Handle<YieldTermStructure> &yts,
     const Handle<YieldTermStructure> &ytsNumeraire,
