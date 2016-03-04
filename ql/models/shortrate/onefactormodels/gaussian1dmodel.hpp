@@ -187,13 +187,13 @@ class Gaussian1dModel : public TermStructureConsistentModel, public LazyObject {
 
     /*! Computes the standardized model state from the original one
         We use that the standard deviation is independent of $x$ here ! */
-    const Real y(const Real x, const Time t) {
+    Real y(const Real x, const Time t) {
         return (x - stateProcess_->expectation(0.0, 0.0, t)) /
                stateProcess_->stdDeviation(0.0, 0.0, t);
     }
 
   private:
-    const Real
+    Real
     swapAnnuityImpl(const Date &fixing, const Period &tenor,
                     const Date &referenceDate, const Real y,
                     boost::shared_ptr<SwapIndex> swapIdx, const bool adjusted,

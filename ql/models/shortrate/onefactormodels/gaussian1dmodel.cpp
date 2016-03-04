@@ -162,7 +162,7 @@ Real Gaussian1dModel::swapAnnuity(const Date &fixing, const Period &tenor,
                            false, Handle<YieldTermStructure>());
 }
 
-const Real Gaussian1dModel::deflatedSwapAnnuity(
+Real Gaussian1dModel::deflatedSwapAnnuity(
     const Date &fixing, const Period &tenor, const Date &referenceDate,
     const Real y, boost::shared_ptr<SwapIndex> swapIdx, const bool adjusted,
     const Handle<YieldTermStructure> &ytsNumeraire) const {
@@ -170,7 +170,7 @@ const Real Gaussian1dModel::deflatedSwapAnnuity(
                            true,ytsNumeraire);
 }
 
-const Real Gaussian1dModel::swapAnnuityImpl(
+Real Gaussian1dModel::swapAnnuityImpl(
     const Date &fixing, const Period &tenor, const Date &referenceDate,
     const Real y, boost::shared_ptr<SwapIndex> swapIdx, const bool adjusted,
     const bool deflated, const Handle<YieldTermStructure> &ytsNumeraire) const {
