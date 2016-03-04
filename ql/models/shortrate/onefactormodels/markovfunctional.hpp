@@ -400,12 +400,9 @@ namespace QuantLib {
         const Disposable<Array> zerobondArray(const Time T, const Time t,
                                               const Array &y) const;
 
-<<<<<<< HEAD
-=======
         Real deflatedZerobond(const Time T, const Time t = 0.0,
                               const Real y = 0.0) const;
 
->>>>>>> vendor
         // the following methods (tagged internal) are indended only to produce
         // the volatility diagnostics in the model outputs
         // due to the special convention of the instruments used for numeraire
