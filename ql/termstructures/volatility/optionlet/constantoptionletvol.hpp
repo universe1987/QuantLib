@@ -36,35 +36,31 @@ namespace QuantLib {
     class ConstantOptionletVolatility : public OptionletVolatilityStructure {
       public:
         //! floating reference date, floating market data
-        ConstantOptionletVolatility(Natural settlementDays,
-                                    const Calendar& cal,
+        ConstantOptionletVolatility(Natural settlementDays, const Calendar &cal,
                                     BusinessDayConvention bdc,
-                                    const Handle<Quote>& volatility,
-                                    const DayCounter& dc,
+                                    const Handle< Quote > &volatility,
+                                    const DayCounter &dc,
                                     VolatilityType type = ShiftedLognormal,
                                     Real displacement = 0.0);
         //! fixed reference date, floating market data
-        ConstantOptionletVolatility(const Date& referenceDate,
-                                    const Calendar& cal,
+        ConstantOptionletVolatility(const Date &referenceDate,
+                                    const Calendar &cal,
                                     BusinessDayConvention bdc,
-                                    const Handle<Quote>& volatility,
-                                    const DayCounter& dc,
+                                    const Handle< Quote > &volatility,
+                                    const DayCounter &dc,
                                     VolatilityType type = ShiftedLognormal,
                                     Real displacement = 0.0);
         //! floating reference date, fixed market data
-        ConstantOptionletVolatility(Natural settlementDays,
-                                    const Calendar& cal,
+        ConstantOptionletVolatility(Natural settlementDays, const Calendar &cal,
                                     BusinessDayConvention bdc,
-                                    Volatility volatility,
-                                    const DayCounter& dc,
+                                    Volatility volatility, const DayCounter &dc,
                                     VolatilityType type = ShiftedLognormal,
                                     Real displacement = 0.0);
         //! fixed reference date, fixed market data
-        ConstantOptionletVolatility(const Date& referenceDate,
-                                    const Calendar& cal,
+        ConstantOptionletVolatility(const Date &referenceDate,
+                                    const Calendar &cal,
                                     BusinessDayConvention bdc,
-                                    Volatility volatility,
-                                    const DayCounter& dc,
+                                    Volatility volatility, const DayCounter &dc,
                                     VolatilityType type = ShiftedLognormal,
                                     Real displacement = 0.0);
         //! \name TermStructure interface
@@ -76,8 +72,9 @@ namespace QuantLib {
         Real minStrike() const;
         Real maxStrike() const;
         //@}
-        const VolatilityType volatilityType() const;
-        const Real displacement() const;
+        VolatilityType volatilityType() const;
+        Real displacement() const;
+
       protected:
         boost::shared_ptr<SmileSection> smileSectionImpl(const Date& d) const;
         boost::shared_ptr<SmileSection> smileSectionImpl(Time) const;
@@ -104,14 +101,14 @@ namespace QuantLib {
         return QL_MAX_REAL;
     }
 
-    inline const VolatilityType ConstantOptionletVolatility::volatilityType() const {
+    inline VolatilityType
+    ConstantOptionletVolatility::volatilityType() const {
         return type_;
     }
 
-    inline const Real ConstantOptionletVolatility::displacement() const {
+    inline Real ConstantOptionletVolatility::displacement() const {
         return displacement_;
     }
-
 }
 
 #endif

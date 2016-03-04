@@ -91,12 +91,14 @@ namespace QuantLib {
                 std::sqrt(capletVolatility()->blackVariance(fixingDate,
                                                             effStrike));
             Real shift = capletVolatility()->displacement();
-            bool shiftedLn = capletVolatility()->volatilityType() == ShiftedLognormal;
+            bool shiftedLn =
+                capletVolatility()->volatilityType() == ShiftedLognormal;
             Rate fixing =
-                shiftedLn ? blackFormula(optionType, effStrike,
-                                         adjustedFixing(), stdDev, 1.0, shift)
-                          : bachelierBlackFormula(optionType, effStrike,
-                                                  adjustedFixing(), stdDev, 1.0);
+                shiftedLn
+                    ? blackFormula(optionType, effStrike, adjustedFixing(),
+                                   stdDev, 1.0, shift)
+                    : bachelierBlackFormula(optionType, effStrike,
+                                            adjustedFixing(), stdDev, 1.0);
             return fixing * accrualPeriod_ * discount_;
         }
     }
@@ -121,14 +123,15 @@ namespace QuantLib {
         Real variance = capletVolatility()->blackVariance(d1, fixing);
 
         Real shift = capletVolatility()->displacement();
-        bool shiftedLn = capletVolatility()->volatilityType() == ShiftedLognormal;
+        bool shiftedLn =
+            capletVolatility()->volatilityType() == ShiftedLognormal;
 
         Spread adjustment = shiftedLn
                                 ? (fixing + shift) * (fixing + shift) *
                                       variance * tau / (1.0 + fixing * tau)
                                 : variance * tau / (1.0 + fixing * tau);
 
-        if(timingAdjustment_ == BivariateLognormal) {
+        if (timingAdjustment_ == BivariateLognormal) {
             QL_REQUIRE(!correlation_.empty(), "no correlation given");
             Date d4 = coupon_->date();
             Date d5 = d4 >= d3 ? d3 : d2;

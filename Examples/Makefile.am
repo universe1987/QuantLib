@@ -12,6 +12,7 @@ SUBDIRS = \
     CDS \
     ConvertibleBonds \
 	CreditRiskPlus \
+    CVAIRS \
     DiscreteHedging \
     EquityOption \
     FittedBondCurve \

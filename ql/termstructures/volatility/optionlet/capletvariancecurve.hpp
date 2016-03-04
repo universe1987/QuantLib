@@ -33,10 +33,10 @@ namespace QuantLib {
 
     class CapletVarianceCurve : public OptionletVolatilityStructure {
       public:
-        CapletVarianceCurve(const Date& referenceDate,
-                            const std::vector<Date>& dates,
-                            const std::vector<Volatility>& capletVolCurve,
-                            const DayCounter& dayCounter,
+        CapletVarianceCurve(const Date &referenceDate,
+                            const std::vector< Date > &dates,
+                            const std::vector< Volatility > &capletVolCurve,
+                            const DayCounter &dayCounter,
                             VolatilityType type = ShiftedLognormal,
                             Real displacement = 0.0);
         //! \name TermStructure interface
@@ -46,8 +46,9 @@ namespace QuantLib {
         //@}
         Real minStrike() const;
         Real maxStrike() const;
-        const VolatilityType volatilityType() const;
-        const Real displacement() const;
+        VolatilityType volatilityType() const;
+        Real displacement() const;
+
       protected:
         boost::shared_ptr<SmileSection> smileSectionImpl(Time t) const;
         Volatility volatilityImpl(Time t,
@@ -59,15 +60,12 @@ namespace QuantLib {
     };
 
     inline CapletVarianceCurve::CapletVarianceCurve(
-                                const Date& referenceDate,
-                                const std::vector<Date>& dates,
-                                const std::vector<Volatility>& capletVolCurve,
-                                const DayCounter& dayCounter,
-                                VolatilityType type,
-                                Real displacement)
-    : OptionletVolatilityStructure(referenceDate, Calendar(), Following),
-      blackCurve_(referenceDate, dates, capletVolCurve, dayCounter, false),
-      type_(type), displacement_(displacement) {}
+        const Date &referenceDate, const std::vector< Date > &dates,
+        const std::vector< Volatility > &capletVolCurve,
+        const DayCounter &dayCounter, VolatilityType type, Real displacement)
+        : OptionletVolatilityStructure(referenceDate, Calendar(), Following),
+          blackCurve_(referenceDate, dates, capletVolCurve, dayCounter, false),
+          type_(type), displacement_(displacement) {}
 
     inline DayCounter CapletVarianceCurve::dayCounter() const {
         return blackCurve_.dayCounter();
@@ -100,16 +98,13 @@ namespace QuantLib {
         return blackCurve_.blackVol(t, r, true);
     }
 
-    inline
-    const VolatilityType CapletVarianceCurve::volatilityType() const {
+    inline VolatilityType CapletVarianceCurve::volatilityType() const {
         return type_;
     }
 
-    inline
-    const Real CapletVarianceCurve::displacement() const {
+    inline Real CapletVarianceCurve::displacement() const {
         return displacement_;
     }
-
 }
 
 #endif

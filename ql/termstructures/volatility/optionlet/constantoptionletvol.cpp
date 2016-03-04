@@ -26,14 +26,10 @@
 namespace QuantLib {
 
     // floating reference date, floating market data
-    ConstantOptionletVolatility::ConstantOptionletVolatility(
-                                                    Natural settlementDays,
-                                                    const Calendar& cal,
-                                                    BusinessDayConvention bdc,
-                                                    const Handle<Quote>& vol,
-                                                    const DayCounter& dc,
-                                                    VolatilityType type,
-                                                    Real displacement)
+ConstantOptionletVolatility::ConstantOptionletVolatility(
+    Natural settlementDays, const Calendar &cal, BusinessDayConvention bdc,
+    const Handle< Quote > &vol, const DayCounter &dc, VolatilityType type,
+    Real displacement)
     : OptionletVolatilityStructure(settlementDays, cal, bdc, dc),
       volatility_(vol), type_(type), displacement_(displacement) {
         registerWith(volatility_);
@@ -41,43 +37,31 @@ namespace QuantLib {
 
     // fixed reference date, floating market data
     ConstantOptionletVolatility::ConstantOptionletVolatility(
-                                                    const Date& referenceDate,
-                                                    const Calendar& cal,
-                                                    BusinessDayConvention bdc,
-                                                    const Handle<Quote>& vol,
-                                                    const DayCounter& dc,
-                                                    VolatilityType type,
-                                                    Real displacement)
-    : OptionletVolatilityStructure(referenceDate, cal, bdc, dc),
-      volatility_(vol), type_(type), displacement_(displacement) {
+        const Date &referenceDate, const Calendar &cal,
+        BusinessDayConvention bdc, const Handle< Quote > &vol,
+        const DayCounter &dc, VolatilityType type, Real displacement)
+        : OptionletVolatilityStructure(referenceDate, cal, bdc, dc),
+          volatility_(vol), type_(type), displacement_(displacement) {
         registerWith(volatility_);
     }
 
     // floating reference date, fixed market data
     ConstantOptionletVolatility::ConstantOptionletVolatility(
-                                                    Natural settlementDays,
-                                                    const Calendar& cal,
-                                                    BusinessDayConvention bdc,
-                                                    Volatility vol,
-                                                    const DayCounter& dc,
-                                                    VolatilityType type,
-                                                    Real displacement)
-    : OptionletVolatilityStructure(settlementDays, cal, bdc, dc),
-      volatility_(boost::shared_ptr<Quote>(new SimpleQuote(vol))),
-      type_(type), displacement_(displacement){}
+        Natural settlementDays, const Calendar &cal, BusinessDayConvention bdc,
+        Volatility vol, const DayCounter &dc, VolatilityType type,
+        Real displacement)
+        : OptionletVolatilityStructure(settlementDays, cal, bdc, dc),
+          volatility_(boost::shared_ptr< Quote >(new SimpleQuote(vol))),
+          type_(type), displacement_(displacement) {}
 
     // fixed reference date, fixed market data
     ConstantOptionletVolatility::ConstantOptionletVolatility(
-                                                    const Date& referenceDate,
-                                                    const Calendar& cal,
-                                                    BusinessDayConvention bdc,
-                                                    Volatility vol,
-                                                    const DayCounter& dc,
-                                                    VolatilityType type,
-                                                    Real displacement)
-    : OptionletVolatilityStructure(referenceDate, cal, bdc, dc),
-      volatility_(boost::shared_ptr<Quote>(new SimpleQuote(vol))),
-      type_(type), displacement_(displacement) {}
+        const Date &referenceDate, const Calendar &cal,
+        BusinessDayConvention bdc, Volatility vol, const DayCounter &dc,
+        VolatilityType type, Real displacement)
+        : OptionletVolatilityStructure(referenceDate, cal, bdc, dc),
+          volatility_(boost::shared_ptr< Quote >(new SimpleQuote(vol))),
+          type_(type), displacement_(displacement) {}
 
     boost::shared_ptr<SmileSection>
     ConstantOptionletVolatility::smileSectionImpl(const Date& d) const {

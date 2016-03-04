@@ -34,9 +34,6 @@
 #include <ql/option.hpp>
 #include <ql/quotes/simplequote.hpp>
 
-#include <boost/make_shared.hpp>
-
-
 namespace QuantLib {
 
     class FloatingRateCoupon;
@@ -94,23 +91,23 @@ namespace QuantLib {
         still considered experimental */
     class BlackIborCouponPricer : public IborCouponPricer {
       public:
-        enum TimingAdjustment { Black76,
-                                BivariateLognormal };
-        BlackIborCouponPricer(const Handle<OptionletVolatilityStructure> &v =
-                              Handle<OptionletVolatilityStructure>(),
-                              const TimingAdjustment timingAdjustment = Black76,
-                              const Handle<Quote> correlation =
-                              Handle<Quote>(boost::make_shared<SimpleQuote>(1.0)))
+        enum TimingAdjustment { Black76, BivariateLognormal };
+        BlackIborCouponPricer(
+            const Handle< OptionletVolatilityStructure > &v =
+                Handle< OptionletVolatilityStructure >(),
+            const TimingAdjustment timingAdjustment = Black76,
+            const Handle< Quote > correlation =
+                Handle< Quote >(boost::shared_ptr<Quote>(
+                                                   new SimpleQuote(1.0))))
             : IborCouponPricer(v), timingAdjustment_(timingAdjustment),
               correlation_(correlation) {
             QL_REQUIRE(timingAdjustment_ == Black76 ||
-                       timingAdjustment_ == BivariateLognormal,
-                       "unknown timing adjustment (code " << timingAdjustment_ << ")");
-            if(!correlation_.empty())
-                registerWith(correlation_);
+                           timingAdjustment_ == BivariateLognormal,
+                       "unknown timing adjustment (code " << timingAdjustment_
+                                                          << ")");
+            registerWith(correlation_);
         };
         virtual void initialize(const FloatingRateCoupon& coupon);
-        /* */
         Real swapletPrice() const;
         Rate swapletRate() const;
         Real capletPrice(Rate effectiveCap) const;
@@ -135,7 +132,7 @@ namespace QuantLib {
 
       private:
         const TimingAdjustment timingAdjustment_;
-        const Handle<Quote> correlation_;
+        const Handle< Quote > correlation_;
     };
 
     //! base pricer for vanilla CMS coupons

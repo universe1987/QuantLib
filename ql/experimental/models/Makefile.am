@@ -31,7 +31,9 @@ this_include_HEADERS = \
 	qg1dlocalvolmodel.hpp \
     quadraticlfm.hpp \
     sbsmilesection.hpp \
-    splinedensitysmilesection.hpp
+    splinedensitysmilesection.hpp \
+    hestonslvfdmmodel.hpp \
+    hestonslvmcmodel.hpp
 
 libModels_la_SOURCES = \
     adjusterhelper.cpp \
@@ -55,7 +57,9 @@ libModels_la_SOURCES = \
 	qg1dlocalvolmodel.cpp \
     quadraticlfm.cpp \
     sbsmilesection.cpp \
-    splinedensitysmilesection.cpp
+    splinedensitysmilesection.cpp \
+    hestonslvfdmmodel.cpp \
+    hestonslvmcmodel.cpp
 
 noinst_LTLIBRARIES = libModels.la
 

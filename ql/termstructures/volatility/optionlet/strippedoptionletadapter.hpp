@@ -27,6 +27,7 @@
 #define quantlib_stripped_optionlet_adapter_h
 
 #include <ql/termstructures/volatility/optionlet/strippedoptionletbase.hpp>
+#include <ql/termstructures/volatility/optionlet/optionletstripper.hpp>
 #include <ql/termstructures/volatility/optionlet/optionletvolatilitystructure.hpp>
 #include <ql/math/interpolation.hpp>
 #include <ql/math/interpolations/sabrinterpolation.hpp>
@@ -55,9 +56,10 @@ namespace QuantLib {
         //@{
         void update();
         void performCalculations() const;
+        boost::shared_ptr< OptionletStripper > optionletStripper() const;
         //@}
-        const VolatilityType volatilityType() const;
-        const Real displacement() const;
+        VolatilityType volatilityType() const;
+        Real displacement() const;
 
       protected:
         //! \name OptionletVolatilityStructure interface
@@ -71,7 +73,6 @@ namespace QuantLib {
         const boost::shared_ptr<StrippedOptionletBase> optionletStripper_;
         Size nInterpolations_;
         mutable std::vector<boost::shared_ptr<Interpolation> > strikeInterpolations_;
-        mutable boost::shared_ptr<Interpolation> atmInterpolation_;
     };
 
     inline void StrippedOptionletAdapter::update() {
@@ -79,6 +80,11 @@ namespace QuantLib {
         LazyObject::update();
     }
 
+    inline boost::shared_ptr< OptionletStripper >
+    StrippedOptionletAdapter::optionletStripper() const {
+        return boost::dynamic_pointer_cast< OptionletStripper >(
+            optionletStripper_);
+    }
 }
 
 #endif

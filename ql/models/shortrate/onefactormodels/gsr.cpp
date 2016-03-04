@@ -244,7 +244,7 @@ void Gsr::initialize(Real T) {
     termStructureObserver_->registerWith(adjustedStateProcess_);
 }
 
-const Real Gsr::zerobondImpl(const Time T, const Time t, const Real y,
+Real Gsr::zerobondImpl(const Time T, const Time t, const Real y,
                              const Handle<YieldTermStructure> &yts,
                              const bool adjusted) const {
 
@@ -271,8 +271,8 @@ const Real Gsr::zerobondImpl(const Time T, const Time t, const Real y,
     return d * exp(-x * gtT - 0.5 * p->y(t) * gtT * gtT);
 }
 
-const Real Gsr::numeraireImpl(const Time t, const Real y,
-                              const Handle<YieldTermStructure> &yts) const {
+Real Gsr::numeraireImpl(const Time t, const Real y,
+                        const Handle<YieldTermStructure> &yts) const {
 
     calculate();
 

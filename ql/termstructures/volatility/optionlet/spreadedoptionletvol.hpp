@@ -27,6 +27,9 @@
 #define quantlib_spreaded_caplet_volstructure_h
 
 #include <ql/termstructures/volatility/optionlet/optionletvolatilitystructure.hpp>
+#include <ql/termstructures/volatility/optionlet/optionletstripper.hpp>
+#include <ql/termstructures/volatility/optionlet/strippedoptionletadapter.hpp>
+#include <boost/smart_ptr/shared_ptr.hpp>
 
 namespace QuantLib {
 
@@ -52,8 +55,9 @@ namespace QuantLib {
         Calendar calendar() const;
         Natural settlementDays() const;
         //@}
-        const VolatilityType volatilityType() const;
-        const Real displacement() const;
+        VolatilityType volatilityType() const;
+        Real displacement() const;
+
       protected:
         // All virtual methods of base classes must be forwarded
         //! \name OptionletVolatilityStructure interface
@@ -105,14 +109,14 @@ namespace QuantLib {
         return baseVol_->maxStrike();
     }
 
-    inline const VolatilityType SpreadedOptionletVolatility::volatilityType() const {
+    inline VolatilityType
+    SpreadedOptionletVolatility::volatilityType() const {
         return baseVol_->volatilityType();
     }
 
-    inline const Real SpreadedOptionletVolatility::displacement() const {
+    inline Real SpreadedOptionletVolatility::displacement() const {
         return baseVol_->displacement();
     }
-
 }
 
 #endif
