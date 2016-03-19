@@ -29,7 +29,7 @@
 #include <ql/termstructures/yieldtermstructure.hpp>
 #include <ql/math/functional.hpp>
 #include <ql/math/generallinearleastsquares.hpp>
-#include <ql/math/statistics/generalstatistics.hpp>
+#include <ql/math/statistics/incrementalstatistics.hpp>
 #include <ql/methods/montecarlo/pathpricer.hpp>
 #include <ql/methods/montecarlo/earlyexercisepathpricer.hpp>
 
@@ -88,7 +88,7 @@ namespace QuantLib {
         const boost::shared_ptr<EarlyExercisePathPricer<PathType> >
             pathPricer_;
 
-        mutable QuantLib::GeneralStatistics exerciseProbability_;
+        mutable QuantLib::IncrementalStatistics exerciseProbability_;
 
         boost::scoped_array<Array> coeff_;
         boost::scoped_array<DiscountFactor> dF_;
@@ -140,7 +140,7 @@ namespace QuantLib {
         Real price = (*pathPricer_)(path, len_-1);
 
         // Initialize with exercise on last date
-        bool exercised = (price != 0.0);
+        bool exercised = (price > 0.0);
 
         for (Size i=len_-2; i>0; --i) {
             price*=dF_[i];
@@ -157,7 +157,7 @@ namespace QuantLib {
                 if (continuationValue < exercise) {
                     price = exercise;
 
-                    // Esercised
+                    // Exercised
                     exercised = true;
                 }
             }
