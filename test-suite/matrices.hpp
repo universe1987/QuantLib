@@ -39,6 +39,7 @@ class MatricesTest {
     static void testDeterminant();
     static void testOrthogonalProjection();
     static void testCholeskyDecomposition();
+    static void testMoorePenroseInverse();
     static boost::unit_test_framework::test_suite* suite();
 };
 
