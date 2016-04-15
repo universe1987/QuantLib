@@ -192,10 +192,10 @@ McGaussian1dNonstandardSwaptionEngine<RNG, S>::
 
 template <class RNG, class S>
 void McGaussian1dNonstandardSwaptionEngine<RNG, S>::calculate() const {
-    // a lazy object is not thread safe, neither is the caching
-    // in gsrprocess. therefore we trigger computations here such
-    // that neither lazy object recalculation nor write access
-    // during caching occurs in the parallized loop in MonteCarloModel
+// a lazy object is not thread safe, neither is the caching
+// in gsrprocess. therefore we trigger computations here such
+// that neither lazy object recalculation nor write access
+// during caching occurs in the parallized loop in MonteCarloModel
 #ifdef _OPENMP
     boost::shared_ptr<LongstaffSchwartzPathPricer<Path> > tmp =
         this->lsmPathPricer();
@@ -255,13 +255,15 @@ template <class RNG, class S>
 boost::shared_ptr<LongstaffSchwartzPathPricer<Path> >
 McGaussian1dNonstandardSwaptionEngine<RNG, S>::lsmPathPricer() const {
 
-    TimeGrid grid = this->timeGrid();
     // reduced grid which only contains the exercise times and 0
     std::vector<Real> exerciseTimes;
     exerciseTimes.push_back(0.0);
     for (Size i = 0; i < this->arguments_.exercise->dates().size(); ++i) {
-        exerciseTimes.push_back(
-            model_->stateProcess()->time(this->arguments_.exercise->date(i)));
+        Time tmp =
+            model_->stateProcess()->time(this->arguments_.exercise->date(i));
+        if (tmp > 0.0) {
+            exerciseTimes.push_back(tmp);
+        }
     }
     TimeGrid exerciseGrid =
         TimeGrid(exerciseTimes.begin(), exerciseTimes.end());
@@ -269,7 +271,7 @@ McGaussian1dNonstandardSwaptionEngine<RNG, S>::lsmPathPricer() const {
         earlyExercisePricer =
             boost::make_shared<Gaussian1dNonstandardSwaptionPathPricer>(
                 model_, &this->arguments_, discountCurve_, oas_);
-    // we work with non deflated npvs produced in the early exercise pricer
+    // we work with deflated npvs produced in the early exercise pricer
     // so we pass a dummyCurve, which produces discount factors of 1.0 always
     boost::shared_ptr<YieldTermStructure> dummyCurve =
         boost::make_shared<FlatForward>(0, NullCalendar(), 0.0,
