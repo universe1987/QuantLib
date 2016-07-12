@@ -38,7 +38,8 @@ namespace QuantLib {
                                    = SobolBrownianGenerator::Diagonal,
                                unsigned long seed = 0,
                                SobolRsg::DirectionIntegers directionIntegers
-                                   = SobolRsg::JoeKuoD7);
+                               = SobolRsg::JoeKuoD7,
+                               Natural paddingFrom = QL_MAX_INTEGER);
 
         const sample_type& nextSequence() const;
         const sample_type& lastSequence() const;

@@ -112,9 +112,10 @@ namespace QuantLib {
                                         Size steps,
                                         Ordering ordering,
                                         unsigned long seed,
-                                        SobolRsg::DirectionIntegers integers)
+                                        SobolRsg::DirectionIntegers integers,
+                                        Natural paddingFrom)
     : factors_(factors), steps_(steps), ordering_(ordering),
-      generator_(SobolRsg(factors*steps, seed, integers),
+      generator_(SobolRsg(factors*steps, seed, integers, paddingFrom),
                  InverseCumulativeNormal()),
       bridge_(steps), lastStep_(0),
       orderedIndices_(factors, std::vector<Size>(steps)),

@@ -46,13 +46,10 @@ namespace QuantLib {
                            most important factors and the largest
                            steps. */
         };
-        SobolBrownianGenerator(
-                           Size factors,
-                           Size steps,
-                           Ordering ordering,
-                           unsigned long seed = 0,
-                           SobolRsg::DirectionIntegers directionIntegers
-                                                        = SobolRsg::Jaeckel);
+        SobolBrownianGenerator(Size factors, Size steps, Ordering ordering,
+                               unsigned long seed = 0,
+                               SobolRsg::DirectionIntegers directionIntegers = SobolRsg::Jaeckel,
+                               Natural paddingFrom = QL_MAX_INTEGER);
 
         Real nextPath();
         Real nextStep(std::vector<Real>&);

@@ -29,10 +29,12 @@ namespace QuantLib {
         Size factors, Size steps,
         SobolBrownianGenerator::Ordering ordering,
         unsigned long seed,
-        SobolRsg::DirectionIntegers directionIntegers)
+        SobolRsg::DirectionIntegers directionIntegers,
+        Natural paddingFrom)
     : factors_(factors), steps_(steps), dim_(factors*steps),
       seq_(sample_type::value_type(factors*steps), 1.0),
-      gen_(factors, steps, ordering, seed, directionIntegers) {
+      gen_(factors, steps, ordering, seed, directionIntegers,
+          paddingFrom) {
     }
 
     const SobolBrownianBridgeRsg::sample_type&

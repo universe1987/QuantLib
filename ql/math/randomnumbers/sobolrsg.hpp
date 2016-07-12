@@ -26,6 +26,7 @@
 #ifndef quantlib_sobol_ld_rsg_hpp
 #define quantlib_sobol_ld_rsg_hpp
 
+#include <ql/math/randomnumbers/mt19937uniformrng.hpp>
 #include <ql/methods/montecarlo/sample.hpp>
 #include <vector>
 
@@ -38,6 +39,7 @@ namespace QuantLib {
         The implementation relies on primitive polynomials modulo two
         from the book "Monte Carlo Methods in Finance" by Peter
         Jäckel.
+
 
         21 200 primitive polynomials modulo two are provided in QuantLib.
         Jäckel has calculated 8 129 334 polynomials: if you need that many
@@ -116,19 +118,20 @@ namespace QuantLib {
         /*! \pre dimensionality must be <= PPMT_MAX_DIM */
         SobolRsg(Size dimensionality,
                  unsigned long seed = 0,
-                 DirectionIntegers directionIntegers = Jaeckel);
+                 DirectionIntegers directionIntegers = Jaeckel,
+                 Natural paddingFrom = QL_MAX_INTEGER);
         /*! skip to the n-th sample in the low-discrepancy sequence */
         void skipTo(unsigned long n);
         const std::vector<unsigned long>& nextInt32Sequence() const;
         const SobolRsg::sample_type& nextSequence() const {
             const std::vector<unsigned long>& v = nextInt32Sequence();
             // normalize to get a double in (0,1)
-            for (Size k=0; k<dimensionality_; ++k)
+            for (Size k=0; k<v.size(); ++k)
                 sequence_.value[k] = v[k] * normalizationFactor_;
             return sequence_;
         }
         const sample_type& lastSequence() const { return sequence_; }
-        Size dimension() const { return dimensionality_; }
+        Size dimension() const { return sequence_.value.size(); }
       private:
         static const int bits_;
         static const double normalizationFactor_;
@@ -138,6 +141,8 @@ namespace QuantLib {
         mutable sample_type sequence_;
         mutable std::vector<unsigned long> integerSequence_;
         std::vector<std::vector<unsigned long> > directionIntegers_;
+        Natural paddingFrom_;
+        const MersenneTwisterUniformRng mt_;
     };
 
 }
