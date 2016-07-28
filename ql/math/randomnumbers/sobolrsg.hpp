@@ -142,7 +142,7 @@ namespace QuantLib {
         mutable std::vector<unsigned long> integerSequence_;
         std::vector<std::vector<unsigned long> > directionIntegers_;
         Natural paddingFrom_;
-        const MersenneTwisterUniformRng mt_;
+        MersenneTwisterUniformRng mt_;
     };
 
 }
