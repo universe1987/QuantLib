@@ -159,6 +159,7 @@
 #include "optimizers.hpp"
 #include "optionletstripper.hpp"
 #include "overnightindexedswap.hpp"
+#include "montecarlo_multithreaded.hpp"
 #include "pagodaoption.hpp"
 #include "partialtimebarrieroption.hpp"
 #include "pathgenerator.hpp"
@@ -453,6 +454,7 @@ test_suite* init_unit_test_suite(int, char* []) {
     test->add(InflationCPICapFloorTest::suite());
     test->add(InflationVolTest::suite());
     test->add(MargrabeOptionTest::suite());
+    test->add(MonteCarloMultiThreadedTest::suite());
     test->add(NoArbSabrTest::suite());
     test->add(NthToDefaultTest::suite());
     test->add(NumericalDifferentiationTest::suite());
