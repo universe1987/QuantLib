@@ -1,71 +1,62 @@
-# ORE
 
-The [Open Source Risk](http://opensourcerisk.org) project aims at
-estblishing a transparent peer-reviewed framework for pricing and risk
-analysis that can serve as
-* a benchmarking, validation, training, teaching reference 
-* an extensible foundation for tailored risk solutions
+QuantLib: the free/open-source library for quantitative finance
+===============================================================
 
-Open Source Risk Engine (ORE) provides
-* contemporary risk analytics and value adjustments (XVAs) 
-* interfaces for trade/market data and system configuration (API and XML)
-* simple application launchers in Excel, LibreOffice, Python, Jupyter
-* various examples that demonstrate typical use cases
-* comprehensive test suites
+The QuantLib project (<http://quantlib.org>) is aimed at providing a
+comprehensive software framework for quantitative finance. QuantLib is
+a free/open-source library for modeling, trading, and risk management
+in real-life.
 
-ORE is based on [QuantLib](http://quantlib.org), the open source library
-for quantitative finance, and it extends QuantLib in terms of simulation models, financial
-instruments and pricing engines.
+QuantLib is Non-Copylefted Free Software and OSI Certified Open Source
+Software.
 
-ORE is sponsored by
-[Quaternion Risk Management](http://quaternion.com) as part of the
-firm's commitment to transparency in pricing methods and risk
-analytics applied in the industry. ORE is free/open software, provided
-under the Modified BSD License, which permits using and modifying the code base as well as incorporating it into commercial applications.
 
-## Documentation
+Download and usage
+------------------
 
-A detailed User Guide is provided that covers
-* installation instructions
-* description of how to run the examples and which results to expect
-* trade and market data structure
-* application configuration
-* methodology overview
+QuantLib can be downloaded from <http://quantlib.org/download.shtml>;
+installation instructions are available at
+<http://quantlib.org/install.shtml> for most platforms.
 
-## API Reference
+Documentation for the usage and the design of the QuantLib library is
+available from <http://quantlib.org/docs.shtml>.
 
-The source code is documented in doxygen, the API reference is
-available on the [OpenSourceRisk](http://opensourcerisk.org) project site.
+A list of changes for each past versions of the library can be
+browsed at <http://quantlib.org/reference/history.html>.
 
-## License
 
-Open Source Risk Engine (ORE) is
+Questions and feedback
+----------------------
 
-Copyright (C) 2016 Quaternion Risk Management Ltd.
-All rights reserved.
+Bugs can be reported as a GitHub issue at
+<https://github.com/lballabio/QuantLib/issues>; if you have a patch
+available, you can open a pull request instead (see "Contributing"
+below).
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met :
+You can also use the `quantlib-users` and `quantlib-dev` mailing lists
+for feedback, questions, etc.  More information and instructions for
+subscribing are at <http://quantlib.org/mailinglists.shtml>.
 
-&nbsp;&nbsp;&nbsp;&nbsp;Redistributions of source code must retain the above copyright notice,
-&nbsp;&nbsp;&nbsp;&nbsp;this list of conditions and the following disclaimer.
 
-&nbsp;&nbsp;&nbsp;&nbsp;Redistributions in binary form must reproduce the above copyright notice,
-&nbsp;&nbsp;&nbsp;&nbsp;this list of conditions and the following disclaimer in the documentation
-&nbsp;&nbsp;&nbsp;&nbsp;and/or other materials provided with the distribution.
+Contributing
+------------
 
-&nbsp;&nbsp;&nbsp;&nbsp;Neither the names of the copyright holders nor the names of the Open Source
-&nbsp;&nbsp;&nbsp;&nbsp;Risk Group or its contributors may be used to endorse or promote products
-&nbsp;&nbsp;&nbsp;&nbsp;derived from this software without specific prior written permission.
+The easiest way to contribute is through pull requests on GitHub.  Get
+a GitHub account if you don't have it already and clone the repository
+at <https://github.com/lballabio/QuantLib> with the "Fork" button in the
+top right corner of the page. Check out your clone to your machine,
+code away, push your changes to your clone and submit a pull request;
+instructions are available at
+<https://help.github.com/articles/fork-a-repo>.  (In case you need
+them, more detailed instructions for creating pull requests are at
+<https://help.github.com/articles/using-pull-requests>, and a basic
+guide to GitHub is at
+<https://guides.github.com/activities/hello-world/>.
 
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+It's likely that we won't merge your code right away, and we'll ask
+for some changes instead. Don't be discouraged! That's normal; the
+library is complex, and thus it might take some time to become
+familiar with it and to use it in an idiomatic way.
+
+We're looking forward to your contributions.
 
