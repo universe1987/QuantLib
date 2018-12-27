@@ -1,7 +1,6 @@
 #include "complexErf.hpp"
 
 #include <ql/math/comparison.hpp>
-#include <ql/math/distributions/normaldistribution.hpp>
 
 #include <boost/math/special_functions/erf.hpp>
 
