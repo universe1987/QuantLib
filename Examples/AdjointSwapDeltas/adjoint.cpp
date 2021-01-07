@@ -170,8 +170,8 @@ int main() {
 
             // swaps
 
-            auto euribor6m = boost::make_shared<Euribor>(6 * Months);
-            auto euribor6mAD = boost::make_shared<EuriborAD>(6 * Months);
+            boost::shared_ptr<Euribor> euribor6m = boost::make_shared<Euribor>(6 * Months);
+            boost::shared_ptr<EuriborAD> euribor6mAD = boost::make_shared<EuriborAD>(6 * Months);
 
             for (Size i = 0; i < maximumMaturity[ii]; ++i) {
                 boost::shared_ptr<RateHelper> swapTmp = boost::make_shared<SwapRateHelper>(
