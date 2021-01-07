@@ -249,7 +249,7 @@ void InterpolatedZeroCurve_t<Interpolator, T>::initialize(
         Time dt = 1.0 / 365;
         InterestRate_t<T> r(this->data_[0], this->dayCounter(), compounding,
                             frequency);
-        this->data_[0] = r.equivalentRate(Continuous, NoFrequency, dt);
+        this->data_[0] = r.equivalentRate(Continuous, NoFrequency, dt).rate();
 #if !defined(QL_NEGATIVE_RATES)
         QL_REQUIRE(this->data_[0] > 0.0, "non-positive yield");
 #endif
@@ -269,7 +269,7 @@ void InterpolatedZeroCurve_t<Interpolator, T>::initialize(
             InterestRate_t<T> r(this->data_[i], this->dayCounter(), compounding,
                                 frequency);
             this->data_[i] =
-                r.equivalentRate(Continuous, NoFrequency, this->times_[i]);
+                r.equivalentRate(Continuous, NoFrequency, this->times_[i]).rate();
         }
 
 #if !defined(QL_NEGATIVE_RATES)
