@@ -187,11 +187,14 @@ namespace QuantLib {
         // inversion will fail at the Brent's bounds-check if this is not enough
         // (q is very close to 1.), in a bad combination fails around 1.-1.e-7
         Real xMax = 1.e6;
-        return sign *
-            Brent().solve(boost::bind(std::bind2nd(std::minus<Real>(),
-            effectiveq), boost::bind<Real>(
-                &CumulativeBehrensFisher::operator (),
-                distrib_, _1)), accuracy_, (xMin+xMax)/2., xMin, xMax);
+        return 0;
+    //     return sign *
+    //            Brent().solve(
+    //                boost::bind(
+    //                    std::bind2nd(std::minus<Real>(), effectiveq),
+    //                    boost::bind<Real>(&CumulativeBehrensFisher::operator(),
+    //                                      distrib_, _1)),
+    //                accuracy_, (xMin + xMax) / 2., xMin, xMax);
     }
 
 }
