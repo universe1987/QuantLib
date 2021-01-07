@@ -1,4 +1,3 @@
-test that I will be pushing to the forked repo
 
         QuantLib --- the free/open-source library for quantitative finance
         ------------------------------------------------------------------
