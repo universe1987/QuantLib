@@ -2,7 +2,7 @@
 
 /*
 Copyright (C) 2007 Cristina Duminuco
-Copyright (C) 2006 François du Vignaud
+Copyright (C) 2006 Franï¿½ois du Vignaud
 Copyright (C) 2015 Peter Caspers
 
  This file is part of QuantLib, a free-software/open-source library
@@ -97,7 +97,7 @@ class SabrInterpolatedSmileSection_t : public SmileSection_t<T>,
   protected:
     //! Creates the mutable SABRInterpolation
     void createInterpolation() const;
-    mutable boost::shared_ptr<SABRInterpolation_t<T>> sabrInterpolation_;
+    mutable boost::shared_ptr<SABRInterpolation_t<T> > sabrInterpolation_;
 
     //! Market data
     const Handle<Quote_t<T> > forward_;

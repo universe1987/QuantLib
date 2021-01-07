@@ -3,7 +3,7 @@
 /*
  Copyright (C) 2006 Ferdinando Ametrano
  Copyright (C) 2007 Marco Bianchetti
- Copyright (C) 2007 François du Vignaud
+ Copyright (C) 2007 Franï¿½ois du Vignaud
  Copyright (C) 2007 Giorgio Facchinetti
  Copyright (C) 2006 Mario Pucci
  Copyright (C) 2006 StatPro Italia srl
@@ -184,10 +184,10 @@ template <class T> class SABR {
     SABR(Time t, T forward, T alpha, T beta, T nu, T rho, bool alphaIsFixed,
          bool betaIsFixed, bool nuIsFixed, bool rhoIsFixed,
          bool vegaWeighted = false,
-         const boost::shared_ptr<EndCriteria_t<T>> endCriteria =
-             boost::shared_ptr<EndCriteria_t<T>>(),
-         const boost::shared_ptr<OptimizationMethod_t<T>> optMethod =
-             boost::shared_ptr<OptimizationMethod_t<T>>(),
+         const boost::shared_ptr<EndCriteria_t<T> > endCriteria =
+             boost::shared_ptr<EndCriteria_t<T> >(),
+         const boost::shared_ptr<OptimizationMethod_t<T> > optMethod =
+             boost::shared_ptr<OptimizationMethod_t<T> >(),
          const T errorAccept = 0.0020, const bool useMaxError = false,
          const Size maxGuesses = 50)
         : t_(t), forward_(forward), alpha_(alpha), beta_(beta), nu_(nu),
@@ -212,8 +212,8 @@ template <class T> class SABR {
     T alpha_, beta_, nu_, rho_;
     bool alphaIsFixed_, betaIsFixed_, nuIsFixed_, rhoIsFixed_;
     bool vegaWeighted_;
-    const boost::shared_ptr<EndCriteria_t<T>> endCriteria_;
-    const boost::shared_ptr<OptimizationMethod_t<T>> optMethod_;
+    const boost::shared_ptr<EndCriteria_t<T> > endCriteria_;
+    const boost::shared_ptr<OptimizationMethod_t<T> > optMethod_;
     const T errorAccept_;
     const bool useMaxError_;
     const Size maxGuesses_;

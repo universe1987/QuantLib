@@ -156,7 +156,7 @@ class CalibratedModel_t<T>::PrivateConstraint : public Constraint_t<T> {
   private:
     class Impl : public Constraint_t<T>::Impl {
       public:
-        Impl(const std::vector<Parameter_t<T>> &arguments) : arguments_(arguments) {}
+        Impl(const std::vector<Parameter_t<T> > &arguments) : arguments_(arguments) {}
 
         bool test(const Array_t<T> &params) const {
             Size k = 0;

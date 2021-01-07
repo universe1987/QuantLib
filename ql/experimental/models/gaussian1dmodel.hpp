@@ -73,27 +73,27 @@ class Gaussian1dModel_t : public TermStructureConsistentModel_t<T>,
     const boost::shared_ptr<StochasticProcess1D_t<T> > stateProcess() const;
 
     const T numeraire(const Time t, const T y = 0.0,
-                      const Handle<YieldTermStructure_t<T>> &yts =
-                          Handle<YieldTermStructure_t<T>>()) const;
+                      const Handle<YieldTermStructure_t<T> > &yts =
+                          Handle<YieldTermStructure_t<T> >()) const;
 
     const T zerobond(const Time T0, const Time t = 0.0, const T y = 0.0,
-                     const Handle<YieldTermStructure_t<T>> &yts =
-                         Handle<YieldTermStructure_t<T>>()) const;
+                     const Handle<YieldTermStructure_t<T> > &yts =
+                         Handle<YieldTermStructure_t<T> >()) const;
 
     const T numeraire(const Date &referenceDate, const T y = 0.0,
-                      const Handle<YieldTermStructure_t<T>> &yts =
-                          Handle<YieldTermStructure_t<T>>()) const;
+                      const Handle<YieldTermStructure_t<T> > &yts =
+                          Handle<YieldTermStructure_t<T> >()) const;
 
     const T zerobond(const Date &maturity,
                      const Date &referenceDate = Null<Date>(), const T y = 0.0,
-                     const Handle<YieldTermStructure_t<T>> &yts =
-                         Handle<YieldTermStructure_t<T>>()) const;
+                     const Handle<YieldTermStructure_t<T> > &yts =
+                         Handle<YieldTermStructure_t<T> >()) const;
 
     const T zerobondOption(
         const Option::Type &type, const Date &expiry, const Date &valueDate,
         const Date &maturity, const T strike,
         const Date &referenceDate = Null<Date>(), const T y = 0.0,
-        const Handle<YieldTermStructure_t<T>> &yts = Handle<YieldTermStructure_t<T>>(),
+        const Handle<YieldTermStructure_t<T> > &yts = Handle<YieldTermStructure_t<T> >(),
         const T yStdDevs = 7.0, const Size yGridPoints = 64,
         const bool extrapolatePayoff = true,
         const bool flatPayoffExtrapolation = false) const;
@@ -101,8 +101,8 @@ class Gaussian1dModel_t : public TermStructureConsistentModel_t<T>,
     const T forwardRate(const Date &fixing,
                         const Date &referenceDate = Null<Date>(),
                         const T y = 0.0,
-                        boost::shared_ptr<IborIndex_t<T>> iborIdx =
-                            boost::shared_ptr<IborIndex_t<T>>()) const;
+                        boost::shared_ptr<IborIndex_t<T> > iborIdx =
+                            boost::shared_ptr<IborIndex_t<T> >()) const;
 
     const T swapRate(const Date &fixing, const Period &tenor,
                      const Date &referenceDate = Null<Date>(), const T y = 0.0,
@@ -243,7 +243,7 @@ Gaussian1dModel_t<T>::stateProcess() const {
 template <class T>
 inline const T
 Gaussian1dModel_t<T>::numeraire(const Time t, const T y,
-                                const Handle<YieldTermStructure_t<T>> &yts) const {
+                                const Handle<YieldTermStructure_t<T> > &yts) const {
 
     return numeraireImpl(t, y, yts);
 }
@@ -251,14 +251,14 @@ Gaussian1dModel_t<T>::numeraire(const Time t, const T y,
 template <class T>
 inline const T
 Gaussian1dModel_t<T>::zerobond(const Time T0, const Time t, const T y,
-                               const Handle<YieldTermStructure_t<T>> &yts) const {
+                               const Handle<YieldTermStructure_t<T> > &yts) const {
     return zerobondImpl(T0, t, y, yts);
 }
 
 template <class T>
 inline const T
 Gaussian1dModel_t<T>::numeraire(const Date &referenceDate, const T y,
-                                const Handle<YieldTermStructure_t<T>> &yts) const {
+                                const Handle<YieldTermStructure_t<T> > &yts) const {
 
     return numeraire(this->termStructure()->timeFromReference(referenceDate), y, yts);
 }
@@ -267,7 +267,7 @@ template <class T>
 inline const T
 Gaussian1dModel_t<T>::zerobond(const Date &maturity, const Date &referenceDate,
                                const T y,
-                               const Handle<YieldTermStructure_t<T>> &yts) const {
+                               const Handle<YieldTermStructure_t<T> > &yts) const {
 
     return zerobond(this->termStructure()->timeFromReference(maturity),
                     referenceDate != Null<Date>()
@@ -282,7 +282,7 @@ template <class T>
 const T
 Gaussian1dModel_t<T>::forwardRate(const Date &fixing, const Date &referenceDate,
                                   const T y,
-                                  boost::shared_ptr<IborIndex_t<T>> iborIdx) const {
+                                  boost::shared_ptr<IborIndex_t<T> > iborIdx) const {
 
     QL_REQUIRE(iborIdx != NULL, "no ibor index given");
 
@@ -291,7 +291,7 @@ Gaussian1dModel_t<T>::forwardRate(const Date &fixing, const Date &referenceDate,
     if (fixing <= (evaluationDate_ + (enforcesTodaysHistoricFixings_ ? 0 : -1)))
         return iborIdx->fixing(fixing);
 
-    Handle<YieldTermStructure_t<T>> yts =
+    Handle<YieldTermStructure_t<T> > yts =
         iborIdx->forwardingTermStructure(); // might be empty, then use
                                             // model curve
 
@@ -320,9 +320,9 @@ Gaussian1dModel_t<T>::swapRate(const Date &fixing, const Period &tenor,
     if (fixing <= (evaluationDate_ + (enforcesTodaysHistoricFixings_ ? 0 : -1)))
         return swapIdx->fixing(fixing);
 
-    Handle<YieldTermStructure_t<T>> ytsf =
+    Handle<YieldTermStructure_t<T> > ytsf =
         swapIdx->iborIndex()->forwardingTermStructure();
-    Handle<YieldTermStructure_t<T>> ytsd =
+    Handle<YieldTermStructure_t<T> > ytsd =
         swapIdx->discountingTermStructure(); // either might be empty, then
                                              // use model curve
 
@@ -377,7 +377,7 @@ Gaussian1dModel_t<T>::swapAnnuity(const Date &fixing, const Period &tenor,
 
     calculate();
 
-    Handle<YieldTermStructure_t<T>> ytsd =
+    Handle<YieldTermStructure_t<T> > ytsd =
         swapIdx->discountingTermStructure(); // might be empty, then use
                                              // model curve
 
@@ -401,7 +401,7 @@ template <class T>
 const T Gaussian1dModel_t<T>::zerobondOption(
     const Option::Type &type, const Date &expiry, const Date &valueDate,
     const Date &maturity, const T strike, const Date &referenceDate, const T y,
-    const Handle<YieldTermStructure_t<T>> &yts, const T yStdDevs,
+    const Handle<YieldTermStructure_t<T> > &yts, const T yStdDevs,
     const Size yGridPoints, const bool extrapolatePayoff,
     const bool flatPayoffExtrapolation) const {
 

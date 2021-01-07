@@ -104,8 +104,8 @@ class XABRInterpolationImpl_t
     XABRInterpolationImpl_t(
         const I1 &xBegin, const I1 &xEnd, const I2 &yBegin, Time t,
         const T &forward, std::vector<T> params, std::vector<bool> paramIsFixed,
-        bool vegaWeighted, const boost::shared_ptr<EndCriteria_t<T>> &endCriteria,
-        const boost::shared_ptr<OptimizationMethod_t<T>> &optMethod,
+        bool vegaWeighted, const boost::shared_ptr<EndCriteria_t<T> > &endCriteria,
+        const boost::shared_ptr<OptimizationMethod_t<T> > &optMethod,
         const T errorAccept, const bool useMaxError, const Size maxGuesses)
         : Interpolation_t<T>::template templateImpl<I1, I2>(xBegin, xEnd,
                                                             yBegin),
@@ -118,7 +118,7 @@ class XABRInterpolationImpl_t
         if (!optMethod_)
             optMethod_ = boost::shared_ptr<OptimizationMethod_t<T> >(
                 new LevenbergMarquardt_t<T>(1e-8, 1e-8, 1e-8));
-        // optMethod_ = boost::shared_ptr<OptimizationMethod_t<T>>(new
+        // optMethod_ = boost::shared_ptr<OptimizationMethod_t<T> >(new
         //    Simplex(0.01));
         if (!endCriteria_) {
             endCriteria_ = boost::shared_ptr<EndCriteria_t<T> >(
@@ -313,8 +313,8 @@ class XABRInterpolationImpl_t
       private:
         XABRInterpolationImpl_t<I1, I2, Model, T> *xabr_;
     };
-    boost::shared_ptr<EndCriteria_t<T>> endCriteria_;
-    boost::shared_ptr<OptimizationMethod_t<T>> optMethod_;
+    boost::shared_ptr<EndCriteria_t<T> > endCriteria_;
+    boost::shared_ptr<OptimizationMethod_t<T> > optMethod_;
     const T errorAccept_;
     const bool useMaxError_;
     const Size maxGuesses_;

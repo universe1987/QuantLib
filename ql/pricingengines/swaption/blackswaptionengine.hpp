@@ -152,8 +152,8 @@ template <class T> void BlackSwaptionEngine_t<T>::calculate() const {
     }
     case Settlement::Cash: {
         const typename Leg_t<T>::Type &fixedLeg = swap.fixedLeg();
-        boost::shared_ptr<FixedRateCoupon_t<T>> firstCoupon =
-            boost::dynamic_pointer_cast<FixedRateCoupon_t<T>>(fixedLeg[0]);
+        boost::shared_ptr<FixedRateCoupon_t<T> > firstCoupon =
+            boost::dynamic_pointer_cast<FixedRateCoupon_t<T> >(fixedLeg[0]);
         DayCounter dayCount = firstCoupon->dayCounter();
         T fixedLegCashBPS = CashFlows::bps(
             fixedLeg, InterestRate_t<T>(atmForward, dayCount, Compounded, Annual),

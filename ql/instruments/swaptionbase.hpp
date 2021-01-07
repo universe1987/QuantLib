@@ -96,7 +96,7 @@ template <class T> class Swaption_t : public Option_t<T> {
   private:
     // arguments
     boost::shared_ptr<VanillaSwap_t<T> > swap_;
-    // Handle<YieldTermStructure_t<T>> termStructure_;
+    // Handle<YieldTermStructure_t<T> > termStructure_;
     Settlement::Type settlementType_;
 };
 

@@ -2,7 +2,7 @@
 
 /*
  Copyright (C) 2000, 2001, 2002, 2003 RiskMap srl
- Copyright (C) 2006 François du Vignaud
+ Copyright (C) 2006 Franï¿½ois du Vignaud
  Copyright (C) 2006, 2008 Ferdinando Ametrano
  Copyright (C) 2015 Peter Caspers
 
@@ -127,7 +127,7 @@ class SwaptionVolatilityMatrix_t : public SwaptionVolatilityDiscrete_t<T>,
   protected:
     // defining the following method would break CMS test suite
     // to be further investigated
-    // boost::shared_ptr<SmileSection_t<T>> smileSectionImpl(const Date&,
+    // boost::shared_ptr<SmileSection_t<T> > smileSectionImpl(const Date&,
     //                                                 const Period&) const;
     boost::shared_ptr<SmileSection_t<T> > smileSectionImpl(Time, Time) const;
     T volatilityImpl(Time optionTime, Time swapLength, T strike) const;
@@ -310,14 +310,14 @@ void SwaptionVolatilityMatrix_t<T>::performCalculations() const {
             volatilities_[i][j] = volHandles_[i][j]->value();
 }
 
-// boost::shared_ptr<SmileSection_t<T>>
+// boost::shared_ptr<SmileSection_t<T> >
 // SwaptionVolatilityMatrix_t<T>::smileSectionImpl(const Date& d,
 //                                           const Period& swapTenor) const {
 //    Time optionTime = timeFromReference(d);
 //    Time swapLength = convertSwapTenor(swapTenor);
 //    // dummy strike
 //    T atmVol = volatilityImpl(optionTime, swapLength, 0.05);
-//    return boost::shared_ptr<SmileSection_t<T>>(new
+//    return boost::shared_ptr<SmileSection_t<T> >(new
 //        FlatSmileSection_t<T>(d, atmVol, dayCounter(), referenceDate()));
 //}
 
